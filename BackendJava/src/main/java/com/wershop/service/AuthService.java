@@ -9,6 +9,7 @@ import com.wershop.entity.RefreshToken;
 import com.wershop.entity.Role;
 import com.wershop.entity.RoleName;
 import com.wershop.entity.Seller;
+import com.wershop.entity.User;
 import com.wershop.exception.BusinessException;
 import com.wershop.exception.ConflictException;
 import com.wershop.repository.CustomerRepository;
@@ -37,6 +38,8 @@ public class AuthService {
     @Autowired
     SellerRepository sellerRepository;
     @Autowired
+    com.wershop.repository.ShopRepository shopRepository;
+    @Autowired
     RoleRepository roleRepository;
     @Autowired
     PasswordEncoder encoder;
@@ -44,6 +47,8 @@ public class AuthService {
     JwtUtils jwtUtils;
     @Autowired
     RefreshTokenService refreshTokenService;
+    @Autowired
+    OtpService otpService;
 
     public JwtResponse authenticateUser(LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
@@ -51,6 +56,14 @@ public class AuthService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        
+        User user = userRepository.findByEmail(loginRequest.getEmail())
+            .orElseThrow(() -> new BusinessException("User not found"));
+            
+        if (!user.isEnabled() || !"ACTIVE".equals(user.getStatus())) {
+            throw new BusinessException("Account is not active. Please verify OTP.");
+        }
+        
         String role = userDetails.getAuthorities().iterator().next().getAuthority();
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
 
@@ -72,10 +85,14 @@ public class AuthService {
         customer.setEmail(signUpRequest.getEmail());
         customer.setPassword(encoder.encode(signUpRequest.getPassword()));
         customer.setFullName(signUpRequest.getFullName());
-        Role role = roleRepository.findByName(RoleName.ROLE_CUSTOMER)
+        Role role = roleRepository.findByName(RoleName.ROLE_BUYER)
                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
         customer.setRole(role);
+        customer.setEnabled(false);
+        customer.setStatus("PENDING_VERIFICATION");
         customerRepository.save(customer);
+        
+        otpService.generateAndSendOtp(customer.getEmail());
     }
 
     @Transactional
@@ -91,6 +108,30 @@ public class AuthService {
         Role role = roleRepository.findByName(RoleName.ROLE_SELLER)
                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
         seller.setRole(role);
+        seller.setEnabled(false);
+        seller.setStatus("PENDING_VERIFICATION");
         sellerRepository.save(seller);
+        
+        com.wershop.entity.Shop shop = com.wershop.entity.Shop.builder()
+                .seller(seller)
+                .name(signUpRequest.getShopName())
+                .status("PENDING")
+                .build();
+        shopRepository.save(shop);
+        
+        otpService.generateAndSendOtp(seller.getEmail());
+    }
+    
+    @Transactional
+    public void verifyOtp(String email, String otp) {
+        if (!otpService.verifyOtp(email, otp)) {
+            throw new BusinessException("Invalid or expired OTP");
+        }
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() -> new BusinessException("User not found"));
+        user.setEnabled(true);
+        user.setEmailVerified(true);
+        user.setStatus("ACTIVE");
+        userRepository.save(user);
     }
 }

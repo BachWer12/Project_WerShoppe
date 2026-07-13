@@ -1,17 +1,51 @@
-import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import VerifyOtp from "./pages/VerifyOtp";
 import BuyerPortal from "./portals/BuyerPortal";
 import SellerPortal from "./portals/SellerPortal";
 import AdminPortal from "./portals/AdminPortal";
 import LandingPage from "./pages/LandingPage";
+import Cookies from "js-cookie";
 
-type Portal = "landing" | "buyer" | "seller" | "admin";
+const ProtectedRoute = ({ children, role }: { children: React.ReactNode, role?: string }) => {
+  const token = Cookies.get('accessToken');
+  // Add proper role checking logic based on decoded JWT or AuthContext in real app
+  if (!token) {
+    return <Navigate to="/login" />;
+  }
+  return <>{children}</>;
+};
 
 export default function App() {
-  const [portal, setPortal] = useState<Portal>("landing");
-
-  if (portal === "buyer") return <BuyerPortal onExit={() => setPortal("landing")} />;
-  if (portal === "seller") return <SellerPortal onExit={() => setPortal("landing")} />;
-  if (portal === "admin") return <AdminPortal onExit={() => setPortal("landing")} />;
-
-  return <LandingPage onNavigate={setPortal} />;
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<LandingPage onNavigate={(path: string) => {}} />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/verify-otp" element={<VerifyOtp />} />
+        
+        {/* Protected Routes */}
+        <Route path="/buyer/*" element={
+          <ProtectedRoute>
+            <BuyerPortal onExit={() => window.location.href = '/'} />
+          </ProtectedRoute>
+        } />
+        <Route path="/seller/*" element={
+          <ProtectedRoute>
+            <SellerPortal onExit={() => window.location.href = '/'} />
+          </ProtectedRoute>
+        } />
+        <Route path="/admin/*" element={
+          <ProtectedRoute>
+            <AdminPortal onExit={() => window.location.href = '/'} />
+          </ProtectedRoute>
+        } />
+        
+        {/* Dashboard router based on role could be added here */}
+        <Route path="/dashboard" element={<Navigate to="/buyer" />} />
+      </Routes>
+    </Router>
+  );
 }

@@ -38,13 +38,19 @@ public class AuthController {
     @PostMapping("/signup/customer")
     public ResponseEntity<ApiResponse<Void>> registerCustomer(@Valid @RequestBody SignupCustomerRequest signUpRequest) {
         authService.registerCustomer(signUpRequest);
-        return ResponseEntity.ok(ApiResponse.success("Customer registered successfully!", null));
+        return ResponseEntity.ok(ApiResponse.success("Customer registered! OTP sent to email.", null));
     }
 
     @PostMapping("/signup/seller")
     public ResponseEntity<ApiResponse<Void>> registerSeller(@Valid @RequestBody SignupSellerRequest signUpRequest) {
         authService.registerSeller(signUpRequest);
-        return ResponseEntity.ok(ApiResponse.success("Seller registered successfully!", null));
+        return ResponseEntity.ok(ApiResponse.success("Seller registered! OTP sent to email.", null));
+    }
+
+    @PostMapping("/verify-otp")
+    public ResponseEntity<ApiResponse<Void>> verifyOtp(@Valid @RequestBody com.wershop.dto.request.VerifyOtpRequest request) {
+        authService.verifyOtp(request.getEmail(), request.getOtp());
+        return ResponseEntity.ok(ApiResponse.success("Account verified successfully!", null));
     }
 
     @PostMapping("/refreshtoken")
