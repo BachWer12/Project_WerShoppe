@@ -1,0 +1,814 @@
+Prompt thiết kế Figma – Dự án WerBay
+
+Vai trò
+
+Bạn là Senior Product Designer + Senior UX/UI Designer với hơn 10 năm kinh nghiệm thiết kế hệ thống thương mại điện tử như Shopee, Lazada, Amazon Marketplace.
+
+Hãy thiết kế toàn bộ giao diện Figma cho dự án WerBay.
+
+Đây là một Marketplace đa người bán (Multi-Vendor Marketplace).
+
+Thiết kế phải đạt chất lượng production-ready, có thể bàn giao trực tiếp cho Developer.
+
+⸻
+
+Thông tin dự án
+
+Tên hệ thống:
+
+WerBay
+
+Loại hệ thống:
+
+Multi Vendor Marketplace
+
+Đối tượng sử dụng:
+
+* Buyer
+* Seller
+* Admin
+
+Yêu cầu:
+
+* Responsive
+* Desktop trước
+* Có Mobile App
+* Design System đầy đủ
+* Auto Layout
+* Component Variant
+* Design Token
+* Constraint
+* Prototype
+* Ready for Developer
+
+⸻
+
+Phong cách thiết kế
+
+UI Style
+
+* Modern
+* Clean
+* Premium
+* Minimal
+* Shopee + Amazon + Apple
+* Bo góc 12px
+* Shadow nhẹ
+* Khoảng trắng nhiều
+* Material Design kết hợp Ant Design
+
+Màu chủ đạo
+
+Primary
+
+#2563EB
+
+Secondary
+
+#0F172A
+
+Success
+
+#22C55E
+
+Warning
+
+#F59E0B
+
+Danger
+
+#EF4444
+
+Background
+
+#F8FAFC
+
+Typography
+
+Font
+
+Inter
+
+Heading
+
+Bold
+
+Body
+
+Regular
+
+Button
+
+SemiBold
+
+⸻
+
+Design System
+
+Tạo một Page riêng tên
+
+01. Design System
+
+Bao gồm đầy đủ
+
+Color
+
+Primary
+
+Secondary
+
+Neutral
+
+Success
+
+Warning
+
+Danger
+
+Info
+
+Background
+
+Surface
+
+Border
+
+Text
+
+Disabled
+
+Hover
+
+Active
+
+Focus
+
+⸻
+
+Typography
+
+H1
+
+H2
+
+H3
+
+H4
+
+Body Large
+
+Body Medium
+
+Body Small
+
+Caption
+
+Label
+
+Button
+
+Link
+
+⸻
+
+Grid
+
+Desktop
+
+1440
+
+Tablet
+
+768
+
+Mobile
+
+390
+
+⸻
+
+Spacing
+
+4
+
+8
+
+12
+
+16
+
+20
+
+24
+
+32
+
+40
+
+48
+
+64
+
+⸻
+
+Radius
+
+4
+
+8
+
+12
+
+16
+
+24
+
+999
+
+⸻
+
+Shadow
+
+Small
+
+Medium
+
+Large
+
+Card
+
+Popup
+
+Modal
+
+⸻
+
+Icon
+
+Hero Icon
+
+Outline
+
+Filled
+
+⸻
+
+Button Component
+
+Primary
+
+Secondary
+
+Outline
+
+Ghost
+
+Danger
+
+Disabled
+
+Loading
+
+Icon Button
+
+Small
+
+Medium
+
+Large
+
+⸻
+
+Input Component
+
+Text
+
+Password
+
+Search
+
+OTP
+
+Number
+
+Textarea
+
+Currency
+
+Phone
+
+Email
+
+Date
+
+Dropdown
+
+Multi Select
+
+Checkbox
+
+Radio
+
+Switch
+
+Upload
+
+Search Box
+
+⸻
+
+Table Component
+
+Sorting
+
+Filter
+
+Pagination
+
+Checkbox
+
+Status
+
+Action
+
+⸻
+
+Card Component
+
+Product Card
+
+Shop Card
+
+Order Card
+
+Statistic Card
+
+Review Card
+
+Voucher Card
+
+Wallet Card
+
+⸻
+
+Badge
+
+New
+
+Sale
+
+Hot
+
+Pending
+
+Success
+
+Completed
+
+Cancelled
+
+Shipping
+
+Refund
+
+⸻
+
+Modal
+
+Confirm
+
+Delete
+
+Edit
+
+Approve
+
+Reject
+
+Warning
+
+⸻
+
+Toast
+
+Success
+
+Error
+
+Info
+
+Warning
+
+⸻
+
+Empty State
+
+No Product
+
+No Order
+
+No Notification
+
+No Data
+
+⸻
+
+Loading
+
+Spinner
+
+Skeleton
+
+Progress
+
+⸻
+
+Page Structure
+
+Tạo các Page sau trong Figma
+
+⸻
+
+01 Design System
+
+⸻
+
+02 Buyer
+
+Thiết kế đầy đủ các màn hình
+
+Authentication
+
+Splash
+
+Welcome
+
+Login
+
+Register
+
+Forgot Password
+
+Reset Password
+
+Verify OTP
+
+Profile
+
+Change Password
+
+Edit Profile
+
+Address List
+
+Add Address
+
+Notification
+
+Wishlist
+
+Settings
+
+⸻
+
+Home
+
+Home
+
+Category
+
+Search
+
+Search Result
+
+Flash Sale
+
+Voucher
+
+Campaign
+
+Shop Detail
+
+Product Detail
+
+Review
+
+Image Gallery
+
+Chat Seller
+
+⸻
+
+Shopping
+
+Cart
+
+Checkout
+
+Select Address
+
+Select Voucher
+
+Payment
+
+Payment Success
+
+Payment Failed
+
+Tracking Order
+
+Order Detail
+
+Order History
+
+Refund
+
+Review Product
+
+⸻
+
+Wallet
+
+Wallet
+
+Transaction
+
+Top Up
+
+Withdraw
+
+Refund
+
+⸻
+
+Account
+
+Dashboard
+
+Profile
+
+Security
+
+Notification
+
+Support
+
+Complaint
+
+⸻
+
+03 Seller
+
+Dashboard
+
+Revenue
+
+Orders
+
+Order Detail
+
+Products
+
+Add Product
+
+Edit Product
+
+Inventory
+
+Categories
+
+Promotion
+
+Voucher
+
+Flash Sale
+
+Shipping
+
+Wallet
+
+Withdraw
+
+Analytics
+
+Review Management
+
+Customer Chat
+
+Shop Setting
+
+Bank Account
+
+Notification
+
+Profile
+
+⸻
+
+04 Admin
+
+Admin Login
+
+Dashboard
+
+Overview
+
+User Management
+
+Seller Management
+
+Buyer Management
+
+Product Management
+
+Category
+
+Order Management
+
+Shipping Management
+
+Payment Management
+
+Wallet Management
+
+Voucher Management
+
+Promotion
+
+Complaint Management
+
+Review Management
+
+Banner Management
+
+CMS
+
+Notification
+
+Role Permission
+
+Audit Log
+
+System Configuration
+
+Report
+
+Analytics
+
+⸻
+
+Sitemap
+
+Thiết kế đầy đủ sitemap
+
+Buyer
+
+Seller
+
+Admin
+
+⸻
+
+User Flow
+
+Thiết kế User Flow cho
+
+Buyer Journey
+
+Seller Journey
+
+Admin Journey
+
+⸻
+
+Prototype
+
+Tạo prototype đầy đủ
+
+Login
+
+Register
+
+Search
+
+Add Cart
+
+Checkout
+
+Payment
+
+Order Tracking
+
+Review
+
+Complaint
+
+Seller Product
+
+Admin Approve
+
+⸻
+
+Component Rules
+
+Tất cả màn hình phải dùng Component.
+
+Không được vẽ thủ công.
+
+Button phải là Variant.
+
+Input phải là Variant.
+
+Table phải là Component.
+
+Card phải là Component.
+
+Navbar phải là Component.
+
+Sidebar phải là Component.
+
+Modal phải là Component.
+
+Toast phải là Component.
+
+Badge phải là Component.
+
+Pagination phải là Component.
+
+⸻
+
+Responsive
+
+Desktop
+
+Tablet
+
+Mobile
+
+Tất cả đều phải có Auto Layout.
+
+⸻
+
+Naming Convention
+
+Frame
+
+Screen/
+
+Component
+
+CMP/
+
+Icon
+
+ICON/
+
+Button
+
+BTN/
+
+Input
+
+INPUT/
+
+Card
+
+CARD/
+
+Table
+
+TABLE/
+
+Modal
+
+MODAL/
+
+⸻
+
+Prototype
+
+Prototype đầy đủ giữa các màn hình.
+
+Có hiệu ứng Smart Animate.
+
+Có Overlay cho Modal.
+
+Có Transition.
+
+⸻
+
+Output
+
+Thiết kế hoàn chỉnh một file Figma gồm:
+
+* Design System
+* Buyer UI
+* Seller UI
+* Admin UI
+* Component Library
+* Prototype
+* Responsive Layout
+* Auto Layout
+* Developer Ready
+
+Thiết kế theo tiêu chuẩn UI/UX hiện đại, đầy đủ tất cả màn hình, luồng nghiệp vụ, component và tương tác dựa trên tài liệu BRS/SRS của dự án WerBay.
