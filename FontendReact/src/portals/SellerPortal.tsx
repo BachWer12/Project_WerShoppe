@@ -3,6 +3,8 @@ import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import { Store, Package, ShoppingCart, Settings, LogOut, TrendingUp, Users, DollarSign } from 'lucide-react';
 import Cookies from 'js-cookie';
 
+export type SellerPage = string;
+
 export default function SellerPortal({ onExit }: { onExit: () => void }) {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('dashboard');

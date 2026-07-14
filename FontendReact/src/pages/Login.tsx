@@ -17,11 +17,17 @@ export default function Login() {
     setError('');
     try {
       const res: any = await axiosClient.post('/auth/login', { email, password });
-      if (res.data) {
-        Cookies.set('accessToken', res.data.accessToken);
-        Cookies.set('refreshToken', res.data.refreshToken);
-        navigate('/dashboard');
-      }
+        const role = res.data.data?.role;
+        Cookies.set('accessToken', res.data.accessToken || res.data.data?.accessToken);
+        Cookies.set('refreshToken', res.data.refreshToken || res.data.data?.refreshToken);
+        
+        if (role === 'ROLE_ADMIN') {
+          navigate('/admin');
+        } else if (role === 'ROLE_SELLER') {
+          navigate('/seller');
+        } else {
+          navigate('/buyer');
+        }
     } catch (err: any) {
       setError(err.response?.data?.message || 'Login failed. Please check your credentials.');
       if (err.response?.data?.message?.includes('verify OTP')) {

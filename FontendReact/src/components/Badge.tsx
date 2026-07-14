@@ -1,5 +1,5 @@
 interface BadgeProps {
-  variant?: "new" | "sale" | "hot" | "pending" | "success" | "completed" | "cancelled" | "shipping" | "refund" | "info";
+  variant?: "new" | "sale" | "hot" | "pending" | "success" | "completed" | "cancelled" | "shipping" | "refund" | "info" | "warning" | "danger";
   children: React.ReactNode;
   size?: "sm" | "md";
 }
@@ -15,6 +15,8 @@ const variants: Record<string, string> = {
   shipping: "bg-purple-50 text-purple-600 border border-purple-100",
   refund: "bg-pink-50 text-pink-600 border border-pink-100",
   info: "bg-blue-50 text-blue-700 border border-blue-100",
+  warning: "bg-yellow-50 text-yellow-700 border border-yellow-100",
+  danger: "bg-red-50 text-red-600 border border-red-100",
 };
 
 export default function Badge({ variant = "info", children, size = "sm" }: BadgeProps) {

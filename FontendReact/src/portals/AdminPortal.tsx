@@ -3,6 +3,7 @@ import AdminSidebar from "../admin/AdminSidebar";
 import AdminDashboard from "../admin/AdminDashboard";
 import AdminUsers from "../admin/AdminUsers";
 import AdminProducts from "../admin/AdminProducts";
+import AdminCategories from "../admin/AdminCategories";
 import AdminOrders from "../admin/AdminOrders";
 import AdminSellers from "../admin/AdminSellers";
 import AdminSettings from "../admin/AdminSettings";
@@ -12,7 +13,7 @@ import AdminComplaints from "../admin/AdminComplaints";
 import AdminLoginPage from "../admin/LoginPage";
 import { useAuth } from "../context/AuthContext";
 
-export type AdminPage = "dashboard" | "users" | "sellers" | "products" | "orders" | "reports" | "settings" | "vouchers" | "complaints";
+export type AdminPage = "dashboard" | "users" | "sellers" | "products" | "categories" | "orders" | "reports" | "settings" | "vouchers" | "complaints";
 
 interface Props {
   onExit: () => void;
@@ -36,6 +37,7 @@ export default function AdminPortal({ onExit }: Props) {
       case "users": return <AdminUsers />;
       case "sellers": return <AdminSellers />;
       case "products": return <AdminProducts />;
+      case "categories": return <AdminCategories />;
       case "orders": return <AdminOrders />;
       case "reports": return <AdminReports />;
       case "settings": return <AdminSettings />;

@@ -14,9 +14,10 @@ interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  login: (data: any) => Promise<void>;
+  login: (data: any) => Promise<string>;
   registerCustomer: (data: any) => Promise<void>;
   registerSeller: (data: any) => Promise<void>;
+  upgradeToSeller: (shopName: string) => Promise<void>;
   logout: () => void;
 }
 
@@ -51,9 +52,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const login = async (data: any) => {
     try {
       const response = await api.post("/auth/login", data);
-      const { accessToken } = response.data.data;
+      const { accessToken, role } = response.data.data;
       Cookies.set("accessToken", accessToken, { expires: 7 }); // expires in 7 days
       await getMe(); // Fetch user profile after login
+      return role;
     } catch (error) {
       console.error("Login failed", error);
       throw error;
@@ -78,6 +80,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const upgradeToSeller = async (shopName: string) => {
+    try {
+      await api.post("/auth/upgrade-to-seller", { shopName });
+      // Clear token to force re-login because role changed
+      Cookies.remove("accessToken");
+      setUser(null);
+    } catch (error) {
+      console.error("Upgrade to seller failed", error);
+      throw error;
+    }
+  };
+
   const logout = () => {
     Cookies.remove("accessToken");
     setUser(null);
@@ -92,6 +106,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         login,
         registerCustomer,
         registerSeller,
+        upgradeToSeller,
         logout,
       }}
     >

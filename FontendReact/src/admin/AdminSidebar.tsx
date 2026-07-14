@@ -12,6 +12,7 @@ const NAV = [
   { id: "users", label: "Người dùng", icon: Users },
   { id: "sellers", label: "Người bán", icon: Store },
   { id: "products", label: "Sản phẩm", icon: Package },
+  { id: "categories", label: "Danh mục", icon: LayoutDashboard },
   { id: "orders", label: "Đơn hàng", icon: ShoppingBag },
   { id: "vouchers", label: "Voucher", icon: Tag },
   { id: "complaints", label: "Khiếu nại", icon: AlertTriangle },

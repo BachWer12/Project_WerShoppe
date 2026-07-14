@@ -3,6 +3,8 @@ import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import { Search, ShoppingBag, User, LogOut, Package, Star } from 'lucide-react';
 import Cookies from 'js-cookie';
 
+export type BuyerPage = string;
+
 export default function BuyerPortal({ onExit }: { onExit: () => void }) {
   const navigate = useNavigate();
 
