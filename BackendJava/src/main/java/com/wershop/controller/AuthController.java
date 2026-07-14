@@ -3,6 +3,7 @@ package com.wershop.controller;
 import com.wershop.dto.request.LoginRequest;
 import com.wershop.dto.request.SignupCustomerRequest;
 import com.wershop.dto.request.SignupSellerRequest;
+import com.wershop.dto.request.UpgradeSellerRequest;
 import com.wershop.dto.request.TokenRefreshRequest;
 import com.wershop.dto.response.ApiResponse;
 import com.wershop.dto.response.JwtResponse;
@@ -16,6 +17,7 @@ import com.wershop.service.RefreshTokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,6 +47,14 @@ public class AuthController {
     public ResponseEntity<ApiResponse<Void>> registerSeller(@Valid @RequestBody SignupSellerRequest signUpRequest) {
         authService.registerSeller(signUpRequest);
         return ResponseEntity.ok(ApiResponse.success("Seller registered! OTP sent to email.", null));
+    }
+
+    @PostMapping("/upgrade-to-seller")
+    @PreAuthorize("hasRole('BUYER')")
+    public ResponseEntity<ApiResponse<Void>> upgradeToSeller(@Valid @RequestBody UpgradeSellerRequest request) {
+        UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        authService.upgradeToSeller(userDetails.getId(), request.getShopName());
+        return ResponseEntity.ok(ApiResponse.success("Successfully upgraded to Seller. Please re-login.", null));
     }
 
     @PostMapping("/verify-otp")

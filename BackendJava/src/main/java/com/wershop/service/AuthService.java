@@ -134,4 +134,36 @@ public class AuthService {
         user.setStatus("ACTIVE");
         userRepository.save(user);
     }
+
+    @Transactional
+    public void upgradeToSeller(Long userId, String shopName) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new BusinessException("User not found"));
+
+        if (!"ROLE_BUYER".equals(user.getRole().getName().name())) {
+            throw new BusinessException("Only buyers can upgrade to seller");
+        }
+
+        if (shopRepository.findByName(shopName).isPresent()) {
+            throw new ConflictException("Shop name already exists!");
+        }
+
+        Role roleSeller = roleRepository.findByName(RoleName.ROLE_SELLER)
+                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+
+        userRepository.upgradeToSellerNative(userId, shopName, roleSeller.getId());
+
+        // Because we upgraded using native query, JPA might still cache the old User instance.
+        // The newly inserted Shop relies on the Seller. 
+        // We can just create the Shop using native query or flush and fetch.
+        Seller upgradedSeller = sellerRepository.findById(userId)
+                .orElseThrow(() -> new BusinessException("Failed to upgrade seller"));
+
+        com.wershop.entity.Shop shop = com.wershop.entity.Shop.builder()
+                .seller(upgradedSeller)
+                .name(shopName)
+                .status("APPROVED") // Automatically approve for this task or PENDING depending on rules. We'll set APPROVED so they can use it immediately.
+                .build();
+        shopRepository.save(shop);
+    }
 }

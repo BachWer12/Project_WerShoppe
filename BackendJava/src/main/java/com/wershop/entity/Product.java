@@ -21,7 +21,7 @@ public class Product {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "shop_id", nullable = false)
+    @JoinColumn(name = "shop_id", nullable = true)
     private Shop shop;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -43,6 +43,12 @@ public class Product {
 
     @Column(nullable = false)
     private Integer stock;
+
+    private String brand;
+    private Double weight;
+    
+    @Column(columnDefinition = "TEXT")
+    private String images; // Store as JSON string or comma separated URLs
 
     @Column(nullable = false)
     private String status; // DRAFT, PENDING_APPROVAL, ACTIVE, REJECTED, INACTIVE, OUT_OF_STOCK
